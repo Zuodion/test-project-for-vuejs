@@ -20,9 +20,12 @@ import GradientGroupModel from '../models/GradientGroupModel';
 import GradientGroupItemModel from '../models/GradientGroupItemModel';
 
 function getGroupById(user, id) {
+    let groupLink;
     for (let i = 0; i < user.gradientGroups.length; i++) {
         let group = user.gradientGroups[i];
-        if (group.id === id) return group;
+        if (group.id === id) groupLink = group;
+        if (groupLink !== undefined) return groupLink;
+        else return user.gradientGroups[0] || {};
     }
 }
 
