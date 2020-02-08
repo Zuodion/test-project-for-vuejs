@@ -23,10 +23,13 @@ function getGroupById(user, id) {
     let groupLink;
     for (let i = 0; i < user.gradientGroups.length; i++) {
         let group = user.gradientGroups[i];
-        if (group.id === id) groupLink = group;
-        if (groupLink !== undefined) return groupLink;
-        else return user.gradientGroups[0] || {};
+        if (group.id === id) { 
+            groupLink = group
+            break;
+        }
     }
+    if (groupLink) return groupLink;
+    else return user.gradientGroups[0] || {};
 }
 
 const state = {
@@ -91,6 +94,9 @@ const actions = {
 
 const mutations = {
     [UPDATE_USER_STORE](state, user) {
+        if (user.gradientGroups.length > 0) {
+            state.currentGroupId = user.gradientGroups[0].id;
+        }
         state.user = user;
     },
     [ADD_NEW_GROUP](state, group) {
